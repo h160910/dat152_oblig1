@@ -1,4 +1,5 @@
 class TaskList extends HTMLElement {
+    allStatuses = [];
 
     constructor() {
         super();
@@ -13,9 +14,10 @@ class TaskList extends HTMLElement {
         this.shadowRoot.querySelector('.new-task-btn').disabled = false;
     }
 
-    showTasks = (tasks, statuses) => {
+    showTasks = (tasks) => {
+        this.enableaddtask();
         console.log("Showing tasks.");
-        this.shadowRoot.innerHTML += buildTasklistHtml(tasks, statuses);
+        this.shadowRoot.innerHTML += buildTasklistHtml(tasks, this.allStatuses);
     }
 
     addtaskCallback = (fn) => {
@@ -24,65 +26,66 @@ class TaskList extends HTMLElement {
     }
 
     changestatusCallback = (fn) => {
-        const tasks = this.shadowRoot.querySelectorAll('.change-status');
+        // selects the <div class="tasks"> element, which is the nearest non-dynamic element to the modify menus
+        const rootTaskElement = this.shadowRoot.querySelector('.tasks');
 
-        // Adds event listener to each drop down menu
-        for (let m of tasks) {
-            m.addEventListener('change', async () => {
+        // adds the event listener to the parent element
+        // this is called Event Delegation, which makes it possible to add event listeners to dynamically added elements
+        rootTaskElement.addEventListener('change', function(e) {
+
+            // e.target is the clicked element (i.e., the specific modify menu)
+            const elem = e.target;
+
+            // if the clicked element matches has class="change-status"
+            if (elem && elem.matches('.change-status')) {
+
+                // gathers the data of the task and new status from select menu
                 const task = {
-                    id: m.id,
-                    newStatus: m.options[m.selectedIndex].text,
-                    title: m.title
+                    id: elem.id,
+                    newStatus: elem.options[elem.selectedIndex].text,
+                    title: elem.title
                 };
-                // reset the select tag
-                this.shadowRoot.querySelector('.change-status').value = "none";
-                fn(task);
-            });
 
-        }
+                // reset the select tag
+                elem.value = "none";
+
+                // sends the task to the callback function
+                fn(task);
+            }
+        });
     }
 
     deletetaskCallback = (fn) => {
-        const deleteBtns = this.shadowRoot.querySelectorAll('.delete-task-btn');
+        // selects the <div class="tasks"> element, which is the nearest non-dynamic element to the delete buttons
+        const rootTaskElement = this.shadowRoot.querySelector('.tasks');
 
-        // Adds event listener to each remove button
-        for (let btn of deleteBtns) {
-            btn.addEventListener('click', () => {
+        // event delegation: adds the event listener to the 'parent element'
+        rootTaskElement.addEventListener('click', function(e) {
+
+            // e.target is the clicked element (i.e., the specific delete button)
+            const btn = e.target;
+
+            // if the clicked element matches has class="delete-task-btn"
+            if (btn && btn.matches('.delete-task-btn')) {
                 const task = {
                     id: btn.id,
                     title: btn.title
                 }
                 fn(task);
-            });
-        }
+            }
+        });
     }
 
     noTask = () => {
-        // necessary??
+        // TODO add a message element that has to be updated every time a task is added/removed
     }
 
     // Add the new task to the view
-    showTask = (task, statuses) => {
+    showTask = (task) => {
         const list = this.shadowRoot.querySelector('.tasks');
         // TODO the task should be added to the top of the list
-        list.innerHTML += buildTaskHtml(task, statuses);
-
-        // TODO add event listeners to modify menu and remove button ??
-        const statusMenu = this.shadowRoot.querySelectorAll(`.change-status`);
-        for (let m of statusMenu) {
-            if(Number(m.id) === task.id) {
-                // TODO m.addEventListener()
-                return;
-            }
-        }
-
-        const deleteBtns = this.shadowRoot.querySelectorAll(`.delete-task-btn`);
-        for (let b of deleteBtns) {
-            if (Number(b.id) === task.id) {
-                // TODO b.addEventListener()
-                return;
-            }
-        }
+        // currently it is added to the bottom
+        list.innerHTML += buildTaskHtml(task, this.allStatuses);
     }
 
     // Updates the status of a task in the view
@@ -102,16 +105,23 @@ class TaskList extends HTMLElement {
 
 const buildBtnHtml = () => {
     return `
-    <div>
+    <div class="information">
     <button type="button" class='new-task-btn' disabled>New task</button>
     </div>
+    <br>
     `;
 };
 
 const buildTasklistHtml = (tasks, statuses) => {
     return `
-    <div>
+    <div class="tasklist">
     <table class="tasks">
+        <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+        </tr>
         ${tasks.map(task => buildTaskHtml(task, statuses)).join('')}
     </table>
     </div>
@@ -119,7 +129,6 @@ const buildTasklistHtml = (tasks, statuses) => {
 };
 
 const buildTaskHtml = (task, statuses) => {
-    // TODO Use a for each to generate the change-status drop down menu
     return `
     <tr class="task" id="${task.id}">
         <td>${task.title}</td>
@@ -127,9 +136,7 @@ const buildTaskHtml = (task, statuses) => {
         <td>
             <select class="change-status" id="${task.id}" title="${task.title}">
                 <option value="none" selected disabled hidden>Modify</option>
-                <option value="${statuses[0]}">WAITING</option>
-                <option value="${statuses[1]}">ACTIVE</option>
-                <option value="${statuses[2]}">DONE</option>
+                ${statuses.map(status => `<option value="${status}">${status}</option>`)}                
             </select>
         </td>
         <td><button type="button" class="delete-task-btn" id="${task.id}" title="${task.title}">Remove</button></td>

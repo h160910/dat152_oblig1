@@ -9,22 +9,34 @@ const taskbox = document.querySelector('task-box');
 // Get all tasks and statuses from server
 const tasks = await getAllTasks();
 
-// Statuses are hardcoded in task-list and task-box
+// Get all statuses from database and pass them to taskbox and tasklist (to use in HTML)
 const allStatuses = await getAllStatuses();
-
-// When connection with server is ok, enable the new task button
-tasklist.enableaddtask();
+taskbox.allStatuses = allStatuses;
+tasklist.allStatuses = allStatuses;
 
 // Tell tasklist to display tasks
-tasklist.showTasks(tasks, allStatuses);
+tasklist.showTasks(tasks);
 
-// Add callbacks
+// CALLBACKS
 tasklist.addtaskCallback(() => {
     console.log("new task button click");
-    taskbox.show();
+
+    taskbox.newtaskCallback( async (task) => {
+        if(task.title === "") {
+            console.log("Need title input!");
+            return;
+        }
+
+        console.log(`Added new task: ${task.title}.`);
+        const response = await addTask(task.title, task.status);
+        const newTask = JSON.parse(response).task;
+        tasklist.showTask(newTask);
+    })
 });
 
 tasklist.changestatusCallback( async(task) => {
+    // TODO handle case: if the new status is equal to current status
+
     if(!window.confirm(`Do you want to change the status of ${task.title} to ${task.newStatus}?`)) return;
 
     console.log(`status of task ${task.id} changed to ${task.newStatus}.`);
@@ -39,15 +51,6 @@ tasklist.deletetaskCallback( async (task) => {
     const deletedTask = JSON.parse(response);
     tasklist.removeTask(deletedTask.id);
 })
-
-taskbox.newtaskCallback( async (task) => {
-    console.log(`Added new task: ${task.title}.`);
-    taskbox.close();
-    const response = await addTask(task.title, task.status);
-    const newTask = JSON.parse(response).task;
-    tasklist.showTask(newTask, allStatuses);
-})
-
 
 // API
 async function getAllTasks() {

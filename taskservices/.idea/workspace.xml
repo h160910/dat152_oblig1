@@ -9,13 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62e863cb-9903-4799-9c0b-addda1f7a335" name="Default Changelist" comment="" />
+    <list default="true" id="62e863cb-9903-4799-9c0b-addda1f7a335" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-box.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/controller.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -34,6 +42,7 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectId" id="1yMlKo8L5Pav8iW07HAvem3Z7Bs" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,6 +50,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -55,19 +65,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TomEE 9.0.52" type="TomeeConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="TomEE 9.0.52" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/taskservices/" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
@@ -168,6 +165,7 @@
       <updated>1632069278414</updated>
       <workItem from="1632069280679" duration="593000" />
       <workItem from="1632069933281" duration="11079000" />
+      <workItem from="1632122729519" duration="9190000" />
     </task>
     <servers />
   </component>

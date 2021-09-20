@@ -1,31 +1,40 @@
 class TaskBox extends HTMLElement {
+    allStatuses = [];
 
     constructor() {
         super();
 
         this.attachShadow({mode: 'open'});
-
-        this.shadowRoot.innerHTML = buildModalHtml();
-
-        const modalStyle = this.shadowRoot.querySelector('.modal').style;
-        buildModalStyle(modalStyle);
-
-        const modalContentStyle = this.shadowRoot.querySelector('.modal-content').style;
-        buildModalContentStyle(modalContentStyle);
     }
 
     show = () => {
-        this.shadowRoot.querySelector('.modal').style.display = "block";
+        this.shadowRoot.innerHTML = buildModalHtml(this.allStatuses);
+
+        const modal = this.shadowRoot.querySelector('.modal');
+        buildModalStyle(modal.style);
+        modal.querySelector('.close-modal').addEventListener('click', this.close);
+
+        const overlay = this.shadowRoot.querySelector('.overlay');
+        buildOverlayStyle(overlay.style);
+        overlay.addEventListener('click', this.close);
     }
 
     close = () => {
-        this.shadowRoot.querySelector('.modal').style.display = "none";
+        this.shadowRoot.querySelector('.modal').remove();
+        this.shadowRoot.querySelector('.overlay').remove();
     }
 
     newtaskCallback = (fn) => {
+        this.show();
+
         const addBtn = this.shadowRoot.querySelector('.add-task-btn');
         addBtn.addEventListener('click', () => {
             const title = this.shadowRoot.querySelector('.input-title').value;
+
+            if (title === "") {
+                this.shadowRoot.querySelector('.input-error').textContent = "Input error";
+                return;
+            }
             const status = this.shadowRoot.querySelector('.select-status').value;
 
             const task = {
@@ -33,47 +42,58 @@ class TaskBox extends HTMLElement {
                 status: status
             }
 
+            this.close();
+
             fn(task);
         });
     }
 }
 
-const buildModalHtml = () => {
+const buildModalHtml = (statuses) => {
   return `
     <div class="modal">
-        <div class="modal-content">
-            <p>Title: <input type="text" class="input-title"></p>
+        <button class="close-modal" style="float:right">&times;</button>
+            <p>
+                Title: <input type="text" class="input-title">
+                <span class="input-error" style="color: red"></span>
+            </p>
             <p>
             Status: <select name="select-status" class="select-status">
-                    <option value="WAITING" selected>WAITING</option>
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="DONE">DONE</option>
+                     ${statuses.map(status => `<option value="${status}">${status}</option>`).join('')} 
                 </select>
             </p>
             <button type="button" class="add-task-btn">Add task</button>
-        </div>
     </div>
+    <div class="overlay"></div>
   `;
 };
 
 const buildModalStyle = (ms) => {
-    ms.display = "none";
-    ms.position = "fixed";
-    ms.zIndex = "1";
-    ms.left = "0";
-    ms.top = "0";
-    ms.width = "100%";
-    ms.height = "100%";
-    ms.overflow = "auto";
-    ms.backgroundColor = "rgba(0,0,0,0.4)";
+    ms.display = "block";
+
+    ms.position = "absolute";
+    ms.left = "50%";
+    ms.top = "50%";
+    ms.transform = "translate(-50%, -50%)";
+    ms.width = "300px";
+
+    ms.padding = "15px";
+
+    ms.backgroundColor = "white";
+    ms.zIndex = "10";
 };
 
-const buildModalContentStyle = (mcs) => {
-    mcs.backgroundColor = "#fefefe";
-    mcs.margin = "15% auto";
-    mcs.padding = "20px";
-    mcs.border = "1px solid #888";
-    mcs.width = "50%";
+const buildOverlayStyle = (ols) => {
+    ols.display = "block";
+
+    ols.position = "absolute";
+    ols.top = "0";
+    ols.left = "0";
+    ols.width = "100%";
+    ols.height = "100%";
+
+    ols.backgroundColor = "rgba(0,0,0, 0.4)";
+    ols.zIndex = "5";
 };
 
 window.customElements.define("task-box", TaskBox);
