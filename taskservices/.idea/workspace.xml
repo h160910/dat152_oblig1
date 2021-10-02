@@ -10,12 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62e863cb-9903-4799-9c0b-addda1f7a335" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/taskservices_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/taskservices_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/taskservices_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/taskservices_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/components/task-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/task-manager/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/task-manager/controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +163,10 @@
       <updated>1632069278414</updated>
       <workItem from="1632069280679" duration="593000" />
       <workItem from="1632069933281" duration="11079000" />
-      <workItem from="1632122729519" duration="9190000" />
+      <workItem from="1632122729519" duration="9740000" />
+      <workItem from="1632132567297" duration="2567000" />
+      <workItem from="1632142163979" duration="1000" />
+      <workItem from="1633107800349" duration="946000" />
     </task>
     <servers />
   </component>

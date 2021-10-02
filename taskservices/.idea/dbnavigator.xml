@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="b79a920b-d0f6-4ba2-9ec6-09021f17906f">
-        <schema name="workorganizer" object-types="table, view, procedure, function, constraint, index, column" />
+        <schema name="workorganizer" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
